@@ -90,8 +90,3 @@ overlay.addEventListener("click", closeModal);
 
 /_ 모달 창 열기 _/
 openButton.addEventListener("click", openModal);
-
-```
-
-
-```
