@@ -1,8 +1,10 @@
-# Programmes algorithm #2
+# Programmes algorithm #3
 
 <img src="https://img.shields.io/badge/JavaScript-FDC813?style=flat&logo=JavaScript&logoColor=black"/>
 
 ## 가운데 글자 가져오기
+
+https://programmers.co.kr/learn/courses/30/lessons/12903
 
 ### 문제 설명
 
@@ -79,4 +81,28 @@
   }
   ```
 
+  </br>
+  </br>
+
+### 다른 풀이 참고
+
+- charAt 함수를 사용한 풀이
+
+```javascript
+function solution(s) {
+  // 정답을 담을 변수
+  var answer = "";
+
+  // 문자열을 2로 나눠서 0이면 -> 짝수(false) / 나머지면 홀수
+  s.length % 2
+    ? (answer = s.charAt(s.length / 2))
+    : (answer = s.charAt(s.lentrh / 2 - 1) + s.charAt(s.length / 2));
+
+  return answer;
+}
+```
+
 ### 공부 내용
+
+- " ? " 를 사용한 조건처리
+- charAt
