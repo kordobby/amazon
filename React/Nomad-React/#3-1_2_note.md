@@ -79,8 +79,10 @@
      let [counter, setCounter] = React.useState(0);
                                   // .useState(0) => counter의 초기 데이터 값
         const onClick = () => {
-          setCounter(counter + 1);
+          setCounter(counter + 1); // setState 방법
          // 어떤 값을 부여하던 modifier 함수는 그 값으로 업데이트하고 리렌더링을 함 
+         /* 하지만 어쩌면 counter가 다른 곳에서 변경되어서 우리가 생각했던 값이 아닐 수 있음
+           => 다른 방법은 뒷 강의에서 배우자 */
         }
         return (
         <div>
