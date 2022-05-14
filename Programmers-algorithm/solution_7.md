@@ -83,5 +83,3 @@ function solution(absolutes, signs) {
 ```
 
 ### 공부 내용
-
-- https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
