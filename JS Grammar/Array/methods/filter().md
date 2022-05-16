@@ -57,3 +57,23 @@ arr.filter(callback(element[, index[, array]])[, thisArg])
   console.log(result);
   // expected output: Array ["exuberant", "destruction", "present"]
   ```
+  ```javascript
+  const numbers = [1, 2, 3, 4, 5]; // 기존 배열
+
+  // filter1 - callback함수를 직접 작성
+  // 현재 요소를 2로 나눈 나머지가 1일 경우 홀수
+  const filter1 = numbers.filter(currentNumber => currentNumber % 2 === 1);
+
+  console.log(filter1); //1, 3, 5]
+  ```
+  ```javascript
+  // filter2 - callback함수 선언 후 이용
+  function isOdd(currentNumber) {
+    return currentNumber % 2 === 1;
+  }
+
+  const filter2 = numbers.filter(isOdd);
+
+  console.log(filter2); // 1, 3, 5]
+  ```
+
