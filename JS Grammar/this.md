@@ -55,18 +55,30 @@ sayFoo(); // 'foo'가 기록됨
 ```
 
 ### 3. 중첩된 함수의 this는 머리 객체를 참조
-- 함수 내에 있는 함수에서는 this의 값은 정의된 객체가 아닌 머리객체를 참조
+- 객체 내부의 메서드 내부에서 this를 호출하면 해당 객체를 가리킴
 ```javascript
-  var myObject = {
-    func1 : function() {
-      console.log(this): // myObject가 기록됨
-      var func2 = function () {
-        console.log(this) // window가 기록되며, 여기서부터는 this가 계속 같음
-        var func3 = function() {
-          console.log(this) : // 머리 객체인 window 기록
-        }();
-      }();
-    }
-  }
+var obj = {
+    print: function() {
+      console.log(this); // obj 객체
+      
+      var print2 = function() {
+        console.log(this); // window 객체
+      }
+      print2();
+   }
+}
 ```
-
+- 이 경우 메서드 내부에서 this를 정의해주면 됨!
+```javascript
+var obj = {
+    print: function() {
+      console.log(this); // obj 객체
+      
+      var _this = this;
+      var print2 = function() {
+        console.log(_this); // obj 객체
+      }
+      print2();
+   }
+}
+```
