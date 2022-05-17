@@ -63,7 +63,7 @@ foo(1, 2); // 3
 var foo = (a, b) => { return a + b }; 
 foo(1, 2); // 3
 
-var foo = (a, b) => ({ a + b }); // "{}"를 사용했는데 return이 없을 때 
+var foo = (a, b) => { a + b }; // "{}"를 사용했는데 return이 없을 때 
 foo(1, 2); // undefined
 
 var foo = (a, b) => { // 여러줄 썼을 때
