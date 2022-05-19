@@ -18,10 +18,15 @@ console.log(friends);  // [1, 2, 3, 4]
 console.log(...frends); // 1 2 3 4
 // array 안에 있는 요소(element)들을 원할 때
 
-// 두 개의 배열의 요소를 합치고 싶을 때
+// 두 개의 배열의 요소를 합치고 싶을 때 ?
 console.log(friends + famlily); // 1,2,3,4a,b,c
+console.log(friends, family); // [ 1, 2, 3, 4 ] [ 'a', 'b', 'c' ]
+
+// How to Merge Array
+console.log(...friends, ...family); // 1 2 3 4 a b c
 console.log([...friends, ...family]); // [ 1, 2, 3, 4, "a", "b", "c" ]
 ```
+
 ### Merging objects
 ```javascript
 const sexy = {
@@ -30,6 +35,20 @@ const sexy = {
 };
 
 const hello = {
+  sexy: true,
+  hello: "hello"
+};
+
+console.log({...sexy, ...hello}); // {name:"dobby", age=20, sexy = true, hello = "hello"}
+```
+```javascript
+const sexy = {
+  name: "dobby",
+  age: 20
+};
+
+const hello = {
+  name: "dobby",  // 중복되는 property가 있다면?
   sexy: true,
   hello: "hello"
 };
@@ -73,12 +92,12 @@ console.log(fullWeek); // ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 * 어떻게하면 obj에 property를 조건부로 추가할 수 있을까?
 ```javascript
 const lastName = prompt("Last Name");
-
+ // prompt() 사용자에게 입력을 요구하는 창이 뜨게하는 함수
 const user = {
   username: "dobby",
   age: 20,
   lastName : lastName !== "" ? lastName : undefined
-  // lastName 이 비어있으면 lastName : undefined
+  // prompt 창에 아무것도 작성하지 않으면 lastName : undefined
 };
 
 console.log(user); // {username : "dobby", age : 20, lastName = undefined}
@@ -91,7 +110,7 @@ const user = {
   username: "dobby",
   age: 20,
   // 입력값이 없으면 index도 숨어있어라
-  ...(lastName !=== "" && { lastName })
+  ...(lastName !== "" && { lastName })
   // lastName 이 빈 문자열이 아니면서 lastName의 value도 없을 때
   // ... 가 조건의 결과를 전개함 
 };
@@ -111,7 +130,7 @@ console.log(user); // {username : "dobby", age : 20}
 ```javascript
 const infiniteArgs = (...kimchi) => console.log(kimchi);
                                     // ["1", 2, true, "lalala", [1, 2, 3, 4]]
-                    // 모든 인자들을 kimchi 에 담아주자 
+                    // 모든 인자들을 kimchi 에 담아주자 (...kimchi 로 축소)
 infiniteArgs("1", 2, true, "lalala", [1, 2, 3, 4]);
 ```
 ### …rest 를 이용해 한개만 픽업하기
@@ -123,6 +142,7 @@ bestFriendMaker("potato", "tomato", "ron", "harry");
 1. 첫번째 Best friend를 데려오고 싶다면?
 ```javascript
 const bestFriendMaker = (firstOne, ... rest) => { 
+                      // * firstOne 은 변경될 수 없음!
                       // rest는 마음대로 potato 라고 써도 괜찮음
   console.log(`My best friend is ${firstOne}`); // My best friend is potato
   console.log(rest); // ["tomato", "ron", "harry" ]
@@ -132,7 +152,7 @@ bestFriendMaker("potato", "tomato", "ron", "harry");
 
 ## Recap
 ### spread : 변수를 확장시킴
-### rest : 변수를 축소시킴 => 값들을 하나의 list에 담아버림
+### rest : 변수를 축소시킴 
 </br>
 </br>
 <hr/>
@@ -169,6 +189,7 @@ const killPassword = ({ password, ...rest }) => rest;
 
 const cleanUser = killPassword(user);
 
+consolelog(killPassword(user)); // {name : "dobby", age : 20}
 console.log(cleanUser); // {name : "dobby", age : 20}
 ```
  
