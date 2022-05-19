@@ -142,7 +142,7 @@ bestFriendMaker("potato", "tomato", "ron", "harry");
 1. 첫번째 Best friend를 데려오고 싶다면?
 ```javascript
 const bestFriendMaker = (firstOne, ... rest) => { 
-                      // * firstOne 은 변경될 수 없음!
+                      // * firstOne 도 바꿔도 됨!
                       // rest는 마음대로 potato 라고 써도 괜찮음
   console.log(`My best friend is ${firstOne}`); // My best friend is potato
   console.log(rest); // ["tomato", "ron", "harry" ]
