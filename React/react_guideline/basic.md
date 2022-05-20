@@ -8,14 +8,21 @@
 
 ### 1. Project Setting
 * react 프로젝트 생성
-```javscript
-nvm --version      // nvm 설치 확인
-```
+  ```javscript
+  nvm --version      // nvm 설치 확인
+  ```
 * react 개발모드 시작
-```javscript
-// react 프로젝트 시작
-npm run start  
-```
+  ```javscript
+  // 현재폴더에 react 설치
+  npx create-react-app 폴더이름
+
+  // react 프로젝트 시작
+  npm run start  
+  ```
+* npm Styled Components
+  ```javascript
+  npm install styled-components
+  ```
 
 ### 2. 폴더 정리
 * 2-1. [public] 폴더 정리
@@ -69,8 +76,8 @@ npm run start
     }
 
   
-    export default Dice;
-    // 2. App.js 로 보내주세요!
+    export default Component;
+    // 2. 컴포넌트를 외부로 보내기
     ```
    * 컴포넌트를 받아올 App.js 파일에 컴포넌트 적용 </br>
     ```javascript
@@ -87,7 +94,6 @@ npm run start
     }
 
     export default App;
-
     ```
 
 ### 4. Props
@@ -214,7 +220,7 @@ npm run start
 
 * State 사용 기본
    * 첫 번째 변수는 원하는 state의 이름(num)
-   * 두 번째 변수에는 state 이름 앞에 set을 붙인 다음 카멜 케이스로 이름을 지어주는 것(setNum)이 일반적
+   * 두 번째 함수에는 state 이름 앞에 set을 붙인 다음 카멜 케이스로 이름을 지어주는 것(setNum)이 일반적
     ```javascript
     import { useState } from 'react';
     // ...
@@ -238,6 +244,7 @@ npm run start
 
     const handleRollClick = () => {
       setNum(3); // num state를 3으로 변경!
+    //함수명(값변경)
     };
 
     const handleClearClick = () => {
@@ -267,38 +274,38 @@ npm run start
 
 #### ⭐  이 특성으로 인해 초깃값을 직접적으로 변경이 불가능해짐
  * (예시) 배열 값을 가진 gameHistory에 push 메소드를 이용해서 배열의 값을 변경한 다음, 변경된 배열을 setter 함수로 state를 변경하려고 하면 코드가 제대로 동작하지 않음
+    ```javascript
+    // ... 
+
+      const [gameHistory, setGameHistory] = useState([]);
+
+      const handleRollClick = () => {
+        const nextNum = random(6); 
+        gameHistory.push(nextNum);
+        setGameHistory(gameHistory); // state가 제대로 변경되지 않는다!
+      };
+
+    // ...
+    ```
+* 왜 Why??????????
+    * gameHistory state는 배열 값 자체를 가지고 있는 게 아니라 그 배열의 주솟값을 참조하고 있는 는 것 => 그렇기 때문에 push 메소드로 배열 안에 요소를 변경했다고 하더라도 결과적으로 참조하는 배열의 주솟값은 변경된 것이 아님
+   * 리액트 입장에서는 gameHistory state가 참조하는 주솟값은 여전히 똑같기 때문에 상태(state)가 바뀌었다고 판단하지 않는 것
+* 해결방법 ?
+   * 참조형 state를 활용할 때는 반드시 새로운 참조형 값을 만들어 state를 변경해야함
+   * 가장 간단한 방법은 아래 코드와 같이 Spread 문법(...) 을 활용하는 것
+
   ```javascript
   // ... 
 
     const [gameHistory, setGameHistory] = useState([]);
 
     const handleRollClick = () => {
-      const nextNum = random(6); 
-      gameHistory.push(nextNum);
-      setGameHistory(gameHistory); // state가 제대로 변경되지 않는다!
+      const nextNum = random(6);
+      setGameHistory([...gameHistory, nextNum]); // state가 제대로 변경된다!
     };
 
   // ...
   ```
-* 왜 Why??????????
-    * gameHistory state는 배열 값 자체를 가지고 있는 게 아니라 그 배열의 주솟값을 참조하고 있는 건데요. 때문에 push 메소드로 배열 안에 요소를 변경했다고 하더라도 결과적으로 참조하는 배열의 주솟값은 변경된 것
-   * 리액트 입장에서는 gameHistory state가 참조하는 주솟값은 여전히 똑같기 때문에 상태(state)가 바뀌었다고 판단하지 않는 것
-* 해결방법 ?
-   * 참조형 state를 활용할 때는 반드시 새로운 참조형 값을 만들어 state를 변경해야함
-   * 가장 간단한 방법은 아래 코드와 같이 Spread 문법(...) 을 활용하는 것
-
-```javascript
-// ... 
-
-  const [gameHistory, setGameHistory] = useState([]);
-
-  const handleRollClick = () => {
-    const nextNum = random(6);
-    setGameHistory([...gameHistory, nextNum]); // state가 제대로 변경된다!
-  };
-
-// ...
-```
 
 * spread 개념</br>
 https://github.com/kordobby/amazon/blob/main/JS%20Grammar/ES6/%236_rest_and_spread.md
