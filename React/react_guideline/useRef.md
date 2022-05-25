@@ -18,6 +18,58 @@
 
 * HTML 페이지에서 가장 중요한 노드 타입은 ELEMENT_NODE, ATTRIBUTE_NODE!
 
+### * 프로퍼티(Property)와 어트리뷰트(Attribute) 속성의 이해
+* Property 와 Attribute 모두 속성을 의미하지만, 그 적용 대상은 다름
+   * Property : DOM 의 속성
+   * Attribute : HTML 태그의 속성
+* 웹브라우저가 HTML 페이지를 읽어 DOM을 생성할 때, HTML 태그의 attr을 읽어 파싱을 하며, 속성이 HTML 표준 속성이면 DOM에도 동일한 Property가 만들어짐
+   * 표준 속성인 경우, HTML 어트리뷰트와 DOM 프로퍼티는 속성 값 또한 공유
+   * HTML 태그의 속성이 표준 속성이 아닌 경우, DOM 프로퍼티는 생성되지 않음
+    <br/>  HTML 태그의 비표준 속성은 사용자 커스텀 attr이 됨
+* Javascript로 DOM 노드에 사용자 정의 속성이나 메서드를 추가할 수 있음
+   * DOM에 추가한 커스텀  ㅍ DOM에서만 접근 가능한 속성이 되며, HTML attr을은 생성되지 않음
+   * 생성된 DOM 속성은 DOM 노드 객체의 속성이 되며, 객체의 속성 접근 방식으로 접근이 가능
+   
+
+    ```html 
+    // HTML
+      <body id = ”page” > </body>
+    // DOM obj. Property 로 전환
+      `body.id` = "page" // 이렇게 전환이 되어서 접근 가능
+    ```
+    ```html
+    // 표준 속성과 비표준 속성의 property 생성 예시 #1
+      <body id=”test” something=”non-standard”>
+        <script>
+          alert(document.body.id); // test
+          *!*
+          // 표준이 아닌 속성은 대응되는 프로퍼티가 생기지 않음
+          alert(document.body.something); // undefined
+          */!*
+        </script>
+      </body>
+    ```
+    ```html
+    // 표준 속성과 비표준 속성의 property 생성 예시 #2
+      <body id=”body” type=”…”>
+        <input id=”input” type=”text”>
+        <script>
+          alert(input.type); // text
+          *!*
+          alert(body.type); // undefined: type은 body의 표준 속성이 아니므로 DOM 프로퍼티가 생기지 않음
+          */!*
+        </script>
+      </body>
+    ```
+    ```html
+    // 비표준 property 읽는 방법
+      <body something=”non-standard”>
+        <script>
+          alert(document.body.getAttribute(‘something’)); // non-standard
+        </script>
+      </body>
+    ```
+
 ## 2. ref?
 ### ref
 * reference의 준말로, 참고-참조 정도로 생각하면 좋을듯?
