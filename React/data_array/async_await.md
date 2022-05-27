@@ -213,3 +213,152 @@ fetchAndPrint();
 // [[PromiseState]] : "rejected"
 // [[PromiseResult]] : Error : fail at fetchAndPrint ...
 ```
+
+## async를 붙이는 위치
+
+### 1. JS 에서 함수를 표현하는 방법?
+* Function Declaration(함수 선언식)
+* Function Expression(함수 표현식)
+   * Named Function Expression : 함수에 이름이 붙어있음
+   * Anonymous Function Expression : 함수에 이름이 없음
+* Arrow Function(화살표 함수)
+
+### 2. 함수마다 async 키워드를 붙이는 방법
+```javascript
+// 1) Function Declaration
+async function example1(a, b) {
+  return a + b;
+}
+
+// 2-1) Function Expression(Named)
+const example2_1= async function add(a, b) {
+  return a + b;
+};
+
+// 2-2) Function Expression(Anonymous)
+const example2_2 = async function(a, b) {
+  return a + b;
+};
+
+// 3-1) Arrow Function
+const example3_1 = async (a, b) => {
+  return a + b;
+};
+
+// 3-2) Arrow Function(shortened)
+const example3_2 = async (a, b) => a + b;
+```
+
+### 3. IIFE 에서의 async?
+* IIFE (Immediately-invoked function expression, 즉시 실행 함수)
+   * 함수를 정의하면서 동시에 실행
+   * 보통 초기화 코드 등에서 함수를 단 한 번만 실행하기 위한 목적으로 이 즉시실행함수를 사용
+```javascript
+(function print(sentence) {
+  console.log(sentence);
+  return sentence;
+}('I love JavaScript!'));
+
+(function (a, b) {
+  return a + b;
+}(1, 2));
+
+((a, b) => {
+  return a + b; 
+})(1, 2);
+
+((a, b) => a + b)(1, 2);
+```
+* IIFE 에서 async 를 사용한 모습
+
+```javascript
+(async function print(sentence) {
+  console.log(sentence);
+  return sentence;
+}('I love JavaScript!'));
+
+(async function (a, b) {
+  return a + b;
+}(1, 2));
+
+(async (a, b) => {
+  return a + b; 
+})(1, 2);
+
+(async (a, b) => a + b)(1, 2);
+```
+
+* 또 연습
+```javascript
+function pick(menus) {
+  console.log('Pick random menu!');
+  const p = new Promise((resolve, reject) => {
+    if (menus.length === 0) {
+      reject(new Error('Need Candidates'));
+    } else {
+      setTimeout(() => {
+        const randomIdx = Math.floor(Math.random() * menus.length);
+        const selectedMenu = menus[randomIdx];
+        resolve(selectedMenu);
+      }, 1000);
+    }
+  });
+  return p;
+}
+
+
+function getRandomMenu() {
+  console.log('---Please wait!---');
+  return fetch('https://learn.codeit.kr/api/menus')
+    .then((response) => response.text())
+    .then((result) => {
+      const menus = JSON.parse(result);
+      return pick(menus); // ! random pick function
+    });
+}
+
+getRandomMenu()
+  .then((menu) => {
+    console.log(`Today's lunch is ${menu.name}~`);
+  })
+  .catch((error) => {
+    console.log(error.message);
+  })
+  .finally(() => {
+    console.log('Random Menu candidates change everyday');
+  });
+```
+```javascript
+async function pick(menus) {
+  console.log('Pick random menu!');
+  const p = new Promise((resolve, reject) => {
+    if (menus.length === 0) {
+      reject(new Error('Need Candidates'));
+    } else {
+      setTimeout(() => {
+        const randomIdx = Math.floor(Math.random() * menus.length);
+        const selectedMenu = menus[randomIdx];
+        resolve(selectedMenu);
+      }, 1000);
+    }
+  });
+
+  return p;
+}
+
+async function getRandomMenu() {
+  console.log('---Please wait!---');
+  try {
+    const response = await fetch('https://learn.codeit.kr/api/menus');
+    const menus = await response.json();
+    const menu = await pick(menus);
+    console.log(`Today's lunch is ${menu.name}~`);
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    console.log('Random Menu candidates change everyday');
+  }
+}
+
+getRandomMenu();
+```
