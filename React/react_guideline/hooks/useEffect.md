@@ -11,6 +11,9 @@
    * life cycle중 componentDidmount처럼 실행
 * 화면이 사라질때 실행(clean up함수)
    * componentWillUnmount처럼 실행
+    ```javascript
+      re-render => 이전 effect clean-up => effect
+    ```
 * deps에 넣은 파라미터값이 업데이트 됬을때 실행
    * componentDidUpdate처럼 실행
 
@@ -63,4 +66,20 @@ function App() {
 }
 
 export default App;
+```
+
+```javascript
+useEffect(() => {
+    // set our variable to true
+    let isApiSubscribed = true;
+    axios.get(API).then((response) => {
+        if (isApiSubscribed) {
+            // handle success
+        }
+    });
+    return () => {
+        // cancel the subscription
+        isApiSubscribed = false;
+    };
+}, []);
 ```
