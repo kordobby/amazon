@@ -12,8 +12,8 @@
 - 매일 14시 호그와트에서 발표
 - 1일 1 소목차, 15일 완성!
 
-[코어자바스크립트 스터디](#https://github.com/kordobby/amazon/tree/main/core_javascript)
+[코어자바스크립트 스터디](https://github.com/kordobby/amazon/tree/main/core_javascript)
 
 ### Self Study
 
-[리액트를 다루는 기술](#react-tech-velopert)
+[리액트를 다루는 기술](react-tech-velopert)
