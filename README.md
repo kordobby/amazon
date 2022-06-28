@@ -8,12 +8,20 @@
 
 ### Potato Club Study
 
+[코어자바스크립트 스터디](https://github.com/kordobby/amazon/tree/main/core_javascript)
+
 - 팀원 : 이윤, 장세화, 고백재, 김준호
 - 매일 14시 호그와트에서 발표
 - 1일 1 소목차, 15일 완성!
 
-[코어자바스크립트 스터디](https://github.com/kordobby/amazon/tree/main/core_javascript)
+|   일정   | 이윤 | 장세화 | 고백재 | 김준호 |
+| :------: | :--: | :----: | :----: | :----: |
+| 6월 28일 | 1-3  |  1-4   |  1-1   |  1-2   |
+| 6월 29일 |  1-  |   1-   |   1-   |   1-   |
 
 ### Self Study
 
 [리액트를 다루는 기술](react-tech-velopert)
+| 일정 | 이윤 | 공부 노트|
+| :------: | :--: | :--: |  
+| 6월 27일 | JSX | |
