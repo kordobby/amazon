@@ -105,3 +105,49 @@ function a() {
 }
 a();
 ```
+
+#### [2] 함수 선언문과 함수 표현식
+
+- 함수 선언문 : function 정의부만 존재하고 별도의 할달 명령이 없음
+- 함수 표현식 : 정의한 function을 별도읩 변수에 할당
+  - 익면 함수 표현식(함수명을 정의하지 않은 함수 표현식)
+
+* 함수를 정의 하는 세 가지 방식
+
+```javascript
+* 함수 선언문 -  함수명 a가 곧 변수명
+function a() {
+  /* ... */
+}
+a(); // 실행 Ok
+
+* (익명) 함수 표현식 - 변수명 b가 곧 함수명
+var b = function () {
+  /* ... */
+};
+b(); // 실행 OK
+
+* 기명 함수 표현식 - 변수명은 c, 함수명은 d
+var c = function d() {
+  /* ... */
+};
+c(); // 실행 OK
+d(); // error!
+```
+
+- 함수 선언문과 함수 표현식
+
+```javascript
+console.log(sum(1, 2));
+console.log(multiply(3, 4));
+
+function sum(a, b) {
+  // 함수 선언문 sum
+  return a + b;
+}
+
+var multiply = function (a, b) {
+  //함수 표현식 multiply
+  return a + b;
+};
+```
