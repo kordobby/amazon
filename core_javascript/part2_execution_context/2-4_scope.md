@@ -57,3 +57,43 @@ console.log(a); // [9] ------> 식별자 a에 접근, 현재 활성화 상태인
 
 - 전역 변수 : 전역 scope에서 선언한 변수
 - 지역 변수 : 함수 내부에서 선언한 변수
+
+```javascript
+// 전역 context - a = 1, outer()
+var a = 1; // 발동
+var outer = function () {
+  // outer() - inner()
+  var inner = function () {
+    // inner()
+    console.log(a); // undefined
+    var a = 3; // a = 3;
+  };
+  inner(); // outer 함수 중단, inner()
+  console.log(a); // 1
+};
+outer(); // 진행 중단하고, outer()
+console.log(a); // 1
+```
+
+```javascript
+const a = 1;
+/////////////////////////
+function c () = {
+  console.log(a); // 1
+  const b = 2;
+  function () = {
+    console.log(a); // 1, 1, undefined
+    function () {
+      console.log(b); // 2, undefined, 2
+    }
+  }
+}
+/////////////////////////
+console.log(b); // undefined
+
+
+
+
+
+
+```
