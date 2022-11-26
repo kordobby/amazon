@@ -1,6 +1,7 @@
 # TDD - jest
 
-출처: https://velog.io/@sssssssssy/TDD-Jest
+참고: https://velog.io/@sssssssssy/TDD-Jest
+참고할 사이트 : Mock - https://www.daleseo.com/jest-fn-spy-on/
 
 ## 프론트엔드 테스트
 
@@ -62,6 +63,87 @@ it('원하는 테스트 이름', () => {
 describe("login", () => {
   it("", () => {});
   it("", () => {});
+});
+```
+
+### matcher
+
+- 값이 특정 조건을 만족하는지 검증할 수 있는 일종의 집합
+- jest 에서는 `expect()` 함수를 사용해 `matcher` 실행 가능
+
+```javascript
+toBe(); // 정확한 값 유추 시 사용
+toEqual(); // 객체 일치여부 확인 시 사용
+toStrictEqual(); // 객체 일치여부 확인 시 사용(권장)
+
+toHaveBeenCalled(); // 함수가 호출되었는지 검증
+toHaveBeenCalledWith(); // 함수에 어떠한 인자가 넘어가 실행되었는지 함께 검증
+toHaveBeenCalledTimes(); // 함수가 몇 번 호출되었는지 정확히 검증
+
+toThrow(); // 특정 상황에서 에러 발생하는지 테스트
+```
+
+```javascript
+expect(foo.setBar).toHaveBeenCalled();
+```
+
+### Setup
+
+- `beforeEach` : file 또는 scope 내의 모든 테스트가 실행되기 전에 `beforeEach` 함수 내에 작성한 함수가 우선적으로 실행됨
+- `afterEach` : `beforeEach` 와는 반대로 테스트 실행이 완료될 때마다 실행됨
+
+### test double
+
+- 외부 interface, API 를 통해 데이터를 받아오는 부분 같은 경우, 대체할 객체를 만들거나 API 자체를 흉내내는 모듈이 필요 => 이러한 개념을 모킹이라 하며 용도에 따른 개념들이 있음
+
+  - Stub(스텁)
+
+    - 더미 객체가 실제로 동작하는 것 처럼 만들어놓은 것
+    - 호출될 시에 미리 준비되어 있는 결과를 반환함
+
+    ```javascript
+    const stub = jest.fn((value) => 20 + value);
+    // or
+    const stub = jest.fn().mockImplementation((value) => 20 + value);
+
+    it(
+      ("",
+      () => {
+        console.log(stub(2)); // 22
+      })
+    );
+    ```
+
+    - 목(Mock)
+      - 실제 객체와 동일한 동작을 하도록 만들어진 모의 객체
+      - 네트워크 통신에 필요한 Axios 라이브러리를 대체하는 `jest-mock-axios` 와 같은 라이브러리가 Mock 의 대표적 예시
+
+### error test
+
+- error 발생 상황 만들고 발생여부 확인
+
+```javascript
+  it('error test', () => { // 예상하는 에러에 대한 검증 테스트 코드
+    expect(() =? {
+      userInfo.password(1234); // expect 안에서 콜백으로 예상하는 에러 생성
+    }).toThrow('throw error') // 에러 발생 시 에러 던지도록 작성
+  })
+```
+
+- 비동기 데이터 처리일 경우,
+
+```javascript
+it("return", () => {
+  return promiseData().then((data) => {
+    // 비동기 수행하고 그 안에서 확인한다면 프로미스 자체를 리턴
+    expect(data).toEqual({ data: "dummy" });
+  });
+});
+
+it("async - await", async () => {
+  // await 사용할 때는 async 같이
+  const dummy = await promiseData();
+  expect(data).toEqual({ data: "dummy" });
 });
 ```
 
